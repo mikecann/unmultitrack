@@ -1,9 +1,18 @@
-# unmultitrack/deps.ps1
+# deps.ps1
 # Checks the ffmpeg tools used by the multi-track demuxer.
 
-$ToolsDir = "C:\dev\tools"
+param([string]$ToolsDir = 'C:\dev\tools')
 
 Write-Host "  [unmultitrack] Checking dependencies..." -ForegroundColor Cyan
+
+if (Get-Command python -ErrorAction SilentlyContinue) {
+    & python --version
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host '    WARN  python is not usable. Install Python 3.10 or newer and add it to PATH.' -ForegroundColor Yellow
+    }
+} else {
+    Write-Host '    WARN  Python 3.10 or newer is required. Install it and add python to PATH.' -ForegroundColor Yellow
+}
 
 $ffmpegPath = Join-Path $ToolsDir "ffmpeg.exe"
 $ffprobePath = Join-Path $ToolsDir "ffprobe.exe"
@@ -13,7 +22,7 @@ if (Test-Path $ffmpegPath) {
 } elseif (Get-Command ffmpeg -ErrorAction SilentlyContinue) {
     Write-Host "    OK    ffmpeg found on PATH" -ForegroundColor Green
 } else {
-    Write-Host "    WARN  ffmpeg.exe not found. Put ffmpeg.exe in C:\dev\tools or on PATH." -ForegroundColor Yellow
+    Write-Host "    WARN  ffmpeg.exe not found. Put ffmpeg.exe in $ToolsDir or on PATH." -ForegroundColor Yellow
 }
 
 if (Test-Path $ffprobePath) {
