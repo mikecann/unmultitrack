@@ -5,10 +5,8 @@ Split a multi-track OBS recording into one normal video file per track
 Windows
 
 <!-- media: hero -->
-<!-- ![unmultitrack](docs/hero.png) -->
-<!-- media: hero -->
-
-![header](docs/header.webp)
+![One OBS recording with three video tracks split into three separate files, each keeping both audio tracks](docs/split.png)
+<!-- /media: hero -->
 
 ## What it is
 
